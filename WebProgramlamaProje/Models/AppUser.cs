@@ -8,10 +8,11 @@ namespace WebProgramlamaProje.Models
 {
     public class AppUser : IdentityUser
     {
+       
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public ICollection<Recipe> Recipes { get; set; }
+        //public ICollection<Recipe> Recipes { get; set; }
 
 
     }
