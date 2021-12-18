@@ -250,7 +250,10 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CategoryId1")
                         .HasColumnType("int");
 
                     b.Property<string>("FoodRecipe")
@@ -262,6 +265,9 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PreparationTime")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PublishTime")
                         .HasColumnType("datetime2");
 
@@ -272,7 +278,7 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryId1");
 
                     b.ToTable("Recipes");
                 });
@@ -331,26 +337,16 @@ namespace WebProgramlamaProje.Data.Migrations
             modelBuilder.Entity("WebProgramlamaProje.Models.Recipe", b =>
                 {
                     b.HasOne("WebProgramlamaProje.Models.AppUser", "AppUser")
-                        .WithMany("Recipes")
+                        .WithMany()
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("WebProgramlamaProje.Models.Category", "Category")
-                        .WithMany("Recipes")
-                        .HasForeignKey("CategoryId");
+                        .WithMany()
+                        .HasForeignKey("CategoryId1");
 
                     b.Navigation("AppUser");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebProgramlamaProje.Models.AppUser", b =>
-                {
-                    b.Navigation("Recipes");
-                });
-
-            modelBuilder.Entity("WebProgramlamaProje.Models.Category", b =>
-                {
-                    b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618
         }

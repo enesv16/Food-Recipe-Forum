@@ -14,6 +14,7 @@ namespace WebProgramlamaProje.Models
         public bool IsConfirmed { get; set; }
         public int PreparationTime { get; set; }
         public DateTime PublishTime { get; set; }
+
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
 
