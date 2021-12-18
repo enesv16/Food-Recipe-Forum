@@ -176,7 +176,7 @@ namespace WebProgramlamaProje.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Recipes));
             }
             return View(recipe);
         }
@@ -208,7 +208,7 @@ namespace WebProgramlamaProje.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Categories));
             }
             return View(category);
         }
