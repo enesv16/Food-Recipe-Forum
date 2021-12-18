@@ -12,8 +12,12 @@ namespace WebProgramlamaProje.Models
         public string FoodRecipe { get; set; }
         public string ImageUrl { get; set; }
         public bool IsConfirmed { get; set; }
+        public int PreparationTime { get; set; }
         public DateTime PublishTime { get; set; }
+        public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+
+        public string CategoryId { get; set; }
         public Category Category { get; set; }
     }
 }
