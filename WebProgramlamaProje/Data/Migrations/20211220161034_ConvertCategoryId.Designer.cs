@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211220161034_ConvertCategoryId")]
+    partial class ConvertCategoryId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,37 +242,6 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("WebProgramlamaProje.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("PublishTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("WebProgramlamaProje.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -362,23 +333,6 @@ namespace WebProgramlamaProje.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebProgramlamaProje.Models.Comment", b =>
-                {
-                    b.HasOne("WebProgramlamaProje.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("WebProgramlamaProje.Models.Recipe", "Recipe")
-                        .WithMany("Comments")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("Recipe");
-                });
-
             modelBuilder.Entity("WebProgramlamaProje.Models.Recipe", b =>
                 {
                     b.HasOne("WebProgramlamaProje.Models.AppUser", "AppUser")
@@ -394,11 +348,6 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WebProgramlamaProje.Models.Recipe", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

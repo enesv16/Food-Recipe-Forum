@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +16,12 @@ namespace WebProgramlamaProje.Controllers
     public class BlogController : Controller
     {
         private readonly ApplicationDbContext _context;
+        
 
         public BlogController(ApplicationDbContext context)
         {
             _context = context;
         }
-
         // GET: Blog
         public async Task<IActionResult> Index()
         {
@@ -48,9 +51,11 @@ namespace WebProgramlamaProje.Controllers
         }
 
         // GET: Blog/Create
+        [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View();
         }
 
@@ -58,16 +63,22 @@ namespace WebProgramlamaProje.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,FoodRecipe,ImageUrl,IsConfirmed,PreparationTime,PublishTime,AppUserId,CategoryId")] Recipe recipe)
+        public async Task<IActionResult> Create([Bind("Title,FoodRecipe,PreparationTime,CategoryId")] Recipe recipe)
         {
             if (ModelState.IsValid)
             {
+                var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                recipe.AppUserId = userId;
+                recipe.PublishTime = DateTime.Now;
+                
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id", recipe.AppUserId);
+            
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id","Seçiniz");
             return View(recipe);
         }
 
