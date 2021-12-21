@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebProgramlamaProje.Data;
 using WebProgramlamaProje.Models;
+using WebProgramlamaProje.HelpersAndServices;
 
 namespace WebProgramlamaProje.Controllers
 {
@@ -23,34 +24,7 @@ namespace WebProgramlamaProje.Controllers
             _context = context;
         }
         // GET: Blog
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Recipes.Include(r => r.Category).Include(a => a.AppUser);
 
-            
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Blog/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var recipe = await _context.Recipes
-                .Include(r => r.AppUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-
-            return View(recipe);
-        }
-
-        // GET: Blog/Create
         [HttpGet]
         [Authorize]
         public IActionResult Create()
@@ -59,9 +33,7 @@ namespace WebProgramlamaProje.Controllers
             return View();
         }
 
-        // POST: Blog/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -72,15 +44,87 @@ namespace WebProgramlamaProje.Controllers
                 var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 recipe.AppUserId = userId;
                 recipe.PublishTime = DateTime.Now;
-                
+
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id","Seçiniz");
+
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", "Seçiniz");
             return View(recipe);
         }
+
+        //public async Task<IActionResult> BlogDetails(string title, int id)
+        //{
+            
+        //    var recipe = await _context.Recipes
+        //        .Include(r => r.AppUser)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (recipe == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(recipe);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Recipes.Include(r => r.Category).Include(a => a.AppUser);
+
+            
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: Blog/Details/5
+
+        
+        public async Task<IActionResult> Details(string title, int id)
+        {
+            
+
+            var recipe = await _context.Recipes
+                .Include(r => r.AppUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (recipe == null)
+                return RedirectToAction(nameof(Index));
+            //if (Url.FriendlyUrl(recipe.Title) != title)
+            //    recipe = null;
+            
+
+            return View(recipe);
+        }
+
+       
 
         // GET: Blog/Edit/5
         public async Task<IActionResult> Edit(int? id)

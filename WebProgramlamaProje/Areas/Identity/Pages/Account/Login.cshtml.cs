@@ -44,14 +44,16 @@ namespace WebProgramlamaProje.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Geçerli bir eposta adresi giriniz.")]
+            [Display(Name ="Eposta")]
             public string Email { get; set; }
 
             [Required]
+            [Display(Name = "Şifre")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Beni hatırla?")]
             public bool RememberMe { get; set; }
         }
 
@@ -82,7 +84,14 @@ namespace WebProgramlamaProje.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var usr = await _userManager.FindByEmailAsync(Input.Email);
+                if(usr == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Bu eposta adresine kayıtlı bir kullanıcı bulunmamakta.");
+                    return Page();
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -99,7 +108,7 @@ namespace WebProgramlamaProje.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Şifre yanlış.");
                     return Page();
                 }
             }

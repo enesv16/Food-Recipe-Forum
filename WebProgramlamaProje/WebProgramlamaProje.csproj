@@ -17,6 +17,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\BlogDesign\assets\fonts\flexslider-icon.svg" />
+    <None Include="wwwroot\BlogDesign\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\BlogDesign\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\BlogDesign\assets\fonts\slick.svg" />
+    <None Include="wwwroot\BlogDesign\assets\js\accordions.js" />
+    <None Include="wwwroot\BlogDesign\assets\js\custom.js" />
+    <None Include="wwwroot\BlogDesign\assets\js\isotope.js" />
+    <None Include="wwwroot\BlogDesign\assets\js\owl.js" />
+    <None Include="wwwroot\BlogDesign\assets\js\slick.js" />
+    <None Include="wwwroot\BlogDesign\prepros-6.config" />
+    <None Include="wwwroot\BlogDesign\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\BlogDesign\vendor\jquery\jquery.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
