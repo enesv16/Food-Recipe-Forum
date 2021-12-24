@@ -112,7 +112,7 @@ namespace WebProgramlamaProje.Controllers
             
 
             var recipe = await _context.Recipes
-                .Include(r => r.AppUser)
+                .Include(r => r.AppUser).Include(m=>m.Comments)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
 
