@@ -4,7 +4,13 @@
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
+<link href="~/BlogDesign/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+
+<!-- Additional CSS Files -->
+<link rel="stylesheet" href="~/BlogDesign/assets/css/fontawesome.css">
+<link rel="stylesheet" href="~/BlogDesign/assets/css/templatemo-stand-blog.css">
+<link rel="stylesheet" href="~/BlogDesign/assets/css/owl.css">
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
@@ -27,4 +33,13 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/BlogDesign/vendor/jquery/jquery.min.js"></script>
+    <script src="~/BlogDesign/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="~/BlogDesign/assets/js/custom.js"></script>
+    <script src="~/BlogDesign/assets/js/owl.js"></script>
+    <script src="~/BlogDesign/assets/js/slick.js"></script>
+    <script src="~/BlogDesign/assets/js/isotope.js"></script>
+    <script src="~/BlogDesign/assets/js/accordions.js"></script>
 }

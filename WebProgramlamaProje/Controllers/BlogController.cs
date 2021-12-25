@@ -56,7 +56,7 @@ namespace WebProgramlamaProje.Controllers
 
         //public async Task<IActionResult> BlogDetails(string title, int id)
         //{
-            
+
         //    var recipe = await _context.Recipes
         //        .Include(r => r.AppUser)
         //        .FirstOrDefaultAsync(m => m.Id == id);
@@ -106,14 +106,15 @@ namespace WebProgramlamaProje.Controllers
 
         // GET: Blog/Details/5
 
-        
-        public async Task<IActionResult> Details(string title, int id)
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
         {
-            
+
 
             var recipe = await _context.Recipes
-                .Include(r => r.AppUser)
+                .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d => d.AppUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
 
             if (recipe == null)
                 return RedirectToAction(nameof(Index));
@@ -123,8 +124,53 @@ namespace WebProgramlamaProje.Controllers
 
             return View(recipe);
         }
+        [HttpPost]
+        public async Task<IActionResult> Details(string yorum, int id)
+        {
 
-       
+
+            var recipe = await _context.Recipes
+                .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d=>d.AppUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+
+
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FirstOrDefaultAsync(z => z.Id == userId);
+            
+            if (!ModelState.IsValid)
+            {
+                return View(yorum,id);
+            }
+            else
+            {
+                Comment yeniYorum = new Comment()
+                {
+                    Text = yorum,
+                    RecipeId = id,
+                    Recipe = recipe,
+                    AppUserId = userId,
+                    AppUser = user,
+                    PublishTime = DateTime.Now
+
+                };
+                _context.Comments.Add(yeniYorum);
+                _context.SaveChanges();
+            }
+        
+        ViewBag.basarili = "Yorumunuz gönderildi admin onayı bekleniyor.";
+            recipe = await _context.Recipes
+                    .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d => d.AppUser)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+            return View(recipe);
+            //if (recipe == null)
+            //    return RedirectToAction(nameof(Index));
+            //if (Url.FriendlyUrl(recipe.Title) != title)
+            //    recipe = null;
+
+
+            //return View(recipe);
+        }
 
         // GET: Blog/Edit/5
         public async Task<IActionResult> Edit(int? id)

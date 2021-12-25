@@ -246,4 +246,59 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Design\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Design\assets\css\flex-slider.css" />
+    <None Include="wwwroot\Design\assets\css\fontawesome.css" />
+    <None Include="wwwroot\Design\assets\css\owl.css" />
+    <None Include="wwwroot\Design\assets\css\templatemo-stand-blog.css" />
+    <None Include="wwwroot\Design\assets\fonts\Flaticon.woff" />
+    <None Include="wwwroot\Design\assets\fonts\flexslider-icon.eot" />
+    <None Include="wwwroot\Design\assets\fonts\flexslider-icon.svg" />
+    <None Include="wwwroot\Design\assets\fonts\flexslider-icon.ttf" />
+    <None Include="wwwroot\Design\assets\fonts\flexslider-icon.woff" />
+    <None Include="wwwroot\Design\assets\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\Design\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Design\assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\Design\assets\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\Design\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Design\assets\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\Design\assets\fonts\slick.eot" />
+    <None Include="wwwroot\Design\assets\fonts\slick.svg" />
+    <None Include="wwwroot\Design\assets\fonts\slick.ttf" />
+    <None Include="wwwroot\Design\assets\fonts\slick.woff" />
+    <None Include="wwwroot\Design\assets\images\about-us.jpg" />
+    <None Include="wwwroot\Design\assets\images\banner-item-01.jpg" />
+    <None Include="wwwroot\Design\assets\images\banner-item-02.jpg" />
+    <None Include="wwwroot\Design\assets\images\banner-item-03.jpg" />
+    <None Include="wwwroot\Design\assets\images\banner-item-04.jpg" />
+    <None Include="wwwroot\Design\assets\images\banner-item-05.jpg" />
+    <None Include="wwwroot\Design\assets\images\banner-item-06.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-post-01.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-post-02.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-post-03.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-thumb-01.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-thumb-02.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-thumb-03.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-thumb-04.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-thumb-05.jpg" />
+    <None Include="wwwroot\Design\assets\images\blog-thumb-06.jpg" />
+    <None Include="wwwroot\Design\assets\images\comment-author-01.jpg" />
+    <None Include="wwwroot\Design\assets\images\comment-author-02.jpg" />
+    <None Include="wwwroot\Design\assets\images\comment-author-03.jpg" />
+    <None Include="wwwroot\Design\assets\images\cta-bg.jpg" />
+    <None Include="wwwroot\Design\assets\images\heading-bg.jpg" />
+    <None Include="wwwroot\Design\assets\js\accordions.js" />
+    <None Include="wwwroot\Design\assets\js\custom.js" />
+    <None Include="wwwroot\Design\assets\js\isotope.js" />
+    <None Include="wwwroot\Design\assets\js\owl.js" />
+    <None Include="wwwroot\Design\assets\js\slick.js" />
+    <None Include="wwwroot\Design\vendor\bootstrap\css\bootstrap.min.css" />
+    <None Include="wwwroot\Design\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Design\vendor\jquery\jquery.min.js" />
+  </ItemGroup>
+
 </Project>
