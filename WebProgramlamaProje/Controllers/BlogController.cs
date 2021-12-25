@@ -109,10 +109,10 @@ namespace WebProgramlamaProje.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            
+
 
             var recipe = await _context.Recipes
-                .Include(r => r.AppUser).Include(m=>m.Comments)
+                .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d => d.AppUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
 
@@ -130,13 +130,14 @@ namespace WebProgramlamaProje.Controllers
 
 
             var recipe = await _context.Recipes
-                .Include(r => r.AppUser)
+                .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d=>d.AppUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
 
 
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            var user = await _context.Users.FirstOrDefaultAsync(z => z.Id == userId);
+            
             if (!ModelState.IsValid)
             {
                 return View(yorum,id);
@@ -147,7 +148,9 @@ namespace WebProgramlamaProje.Controllers
                 {
                     Text = yorum,
                     RecipeId = id,
+                    Recipe = recipe,
                     AppUserId = userId,
+                    AppUser = user,
                     PublishTime = DateTime.Now
 
                 };
@@ -156,6 +159,9 @@ namespace WebProgramlamaProje.Controllers
             }
         
         ViewBag.basarili = "Yorumunuz gönderildi admin onayı bekleniyor.";
+            recipe = await _context.Recipes
+                    .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d => d.AppUser)
+                    .FirstOrDefaultAsync(m => m.Id == id);
             return View(recipe);
             //if (recipe == null)
             //    return RedirectToAction(nameof(Index));
