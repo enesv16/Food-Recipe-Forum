@@ -3,39 +3,51 @@
 @{
     ViewData["Title"] = "Create";
 }
+<head>
 
+    <link rel="stylesheet" href="~/BlogDesign/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/BlogDesign/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="~/BlogDesign/assets/css/templatemo-stand-blog.css">
+    <link rel="stylesheet" href="~/BlogDesign/assets/css/owl.css">
+</head>
 <h1>Create</h1>
 
 <h4>Recipe</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-9">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Başlık</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FoodRecipe" class="control-label"></label>
-                <input asp-for="FoodRecipe" class="form-control" />
-                <span asp-validation-for="FoodRecipe" class="text-danger"></span>
-            </div>
-            
-            
-            <div class="form-group">
-                <label asp-for="PreparationTime" class="control-label"></label>
-                <input asp-for="PreparationTime" class="form-control" />
-                <span asp-validation-for="PreparationTime" class="text-danger"></span>
-            </div>
-            
-            
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
+                <label asp-for="CategoryId" class="control-label">Kategori</label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="PreparationTime" class="control-label">Hazırlama Süresi</label>
+                <input asp-for="PreparationTime" class="form-control" />
+                <span asp-validation-for="PreparationTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FoodRecipe" class="control-label">Tarifin Yapılışı</label>
+                <textarea asp-for="FoodRecipe" rows="5" class="form-control"></textarea>
+
+                <span asp-validation-for="FoodRecipe" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label">Görsel</label>
+                <input asp-for="ImageUrl" class="form-control" name="files" type="file" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -49,4 +61,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/BlogDesign/vendor/jquery/jquery.min.js"></script>
+    <script src="~/BlogDesign/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="~/BlogDesign/assets/js/custom.js"></script>
+    <script src="~/BlogDesign/assets/js/owl.js"></script>
+    <script src="~/BlogDesign/assets/js/slick.js"></script>
+    <script src="~/BlogDesign/assets/js/isotope.js"></script>
+    <script src="~/BlogDesign/assets/js/accordions.js"></script>
+
 }
