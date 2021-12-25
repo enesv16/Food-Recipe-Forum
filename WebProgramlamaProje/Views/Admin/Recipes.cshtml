@@ -1,60 +1,55 @@
 ﻿@model IEnumerable<WebProgramlamaProje.Models.Recipe>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "Tarifler";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Tarifler
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tarif adı</th>
+                        <th>Kategori</th>
+                        <th>Yazar</th>
+                        <th>Yorumlar</th>
+                        <th></th>
 
-<p>
-    <a asp-action="CreateRecipe">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodRecipe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsConfirmed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FoodRecipe)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsConfirmed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishTime)
-                </td>
-                <td>
-                    <a asp-action="EditRecipe" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="RecipeDetails" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="DeleteRecipe" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tarif adı</th>
+                        <th>Kategori</th>
+                        <th>Yazar</th>
+                        <th>Yorumlar</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var recipe in Model)
+                    {
+                    <tr>
+                        <td>@recipe.Title</td>
+                        <td>@recipe.Category.Name</td>
+                        <td>@recipe.AppUser.Name</td>
+                        <td>@recipe.Comments.Count()</td>
+                        
+                        <td>
+                            <a asp-action="EditRecipe" asp-route-id="@recipe.Id">Edit</a> |
+                            <a asp-action="RecipeDetails" asp-route-id="@recipe.Id">Details</a> |
+                            <a asp-action="DeleteRecipe" asp-route-id="@recipe.Id">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Son güncellenme tarihi : @DateTime.Now</div>
+</div>

@@ -20,13 +20,8 @@ namespace WebProgramlamaProje.Controllers
         }
 
         // GET: Admin
-        
 
-        // TARİFLER LİSTE
-        public async Task<IActionResult> Recipes()
-        {
-            return View(await _context.Recipes.ToListAsync());
-        }
+
 
         // KATEGORİ LİSTE
         public async Task<IActionResult> Categories()
@@ -34,7 +29,7 @@ namespace WebProgramlamaProje.Controllers
             return View(await _context.Categories.ToListAsync());
         }
 
-        
+
 
         // TARİF DETAY 
         public async Task<IActionResult> RecipeDetails(int? id)
@@ -75,7 +70,7 @@ namespace WebProgramlamaProje.Controllers
 
 
 
-       
+
         // TARİF OLUŞTUR
         public IActionResult CreateRecipe()
         {
@@ -86,7 +81,7 @@ namespace WebProgramlamaProje.Controllers
             return View();
         }
 
-       
+
 
         // TARİF OLUŞTUR
         [HttpPost]
@@ -115,7 +110,7 @@ namespace WebProgramlamaProje.Controllers
             }
             return View(category);
         }
-        
+
 
         // TARİF DÜZENLE
         public async Task<IActionResult> EditRecipe(int? id)
@@ -147,7 +142,7 @@ namespace WebProgramlamaProje.Controllers
             }
             return View(category);
         }
-        
+
         // TARİF DÜZENLEME {POST}
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -213,7 +208,7 @@ namespace WebProgramlamaProje.Controllers
             return View(category);
         }
         // GET: Admin/Delete/5
-       
+
         // TARİF SİLME
         public async Task<IActionResult> DeleteRecipe(int? id)
         {
@@ -248,7 +243,7 @@ namespace WebProgramlamaProje.Controllers
 
             return View(category);
         }
-        
+
         // TARİF SİLME {POST}
         [HttpPost, ActionName("DeleteRecipe")]
         [ValidateAntiForgeryToken]
@@ -278,6 +273,20 @@ namespace WebProgramlamaProje.Controllers
         private bool CategoryExists(int id)
         {
             return _context.Categories.Any(e => e.Id == id);
+        }
+
+
+
+        //-----------------------------------------------------
+        public async Task<IActionResult> Users()
+        {
+            return View(await _context.Users.ToListAsync());
+        }
+
+        public async Task<IActionResult> Recipes()
+        {
+            var recipes = await _context.Recipes.Include(s => s.AppUser).Include(d => d.Comments).Include(f => f.Category).ToListAsync();
+            return View(recipes);
         }
 
     }

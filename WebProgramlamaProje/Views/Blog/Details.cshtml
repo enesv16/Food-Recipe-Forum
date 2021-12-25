@@ -1,5 +1,7 @@
 ﻿@model WebProgramlamaProje.Models.Recipe
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 @{
     Layout = "";
     ViewData["Title"] = "Details";
@@ -129,7 +131,7 @@
                     <div class="all-blog-posts">
                         <div class="row">
                             <div class="col-lg-12">
-                              
+
                                 <div class="blog-post">
                                     <div class="blog-thumb">
                                         <img src="assets/images/blog-post-02.jpg" alt="">
@@ -142,7 +144,7 @@
                                             <li><a href="#">@Model.PublishTime</a></li>
                                             <li><a href="#">a</a></li>
                                         </ul>
-                                        
+
                                         <p>
                                             @Model.FoodRecipe
                                         </p>
@@ -159,7 +161,7 @@
                                                     <ul class="post-share">
                                                         <li><i class="fa fa-share-alt"></i></li>
                                                         <li><a href="#">Facebook</a>,</li>
-                                                        <li><a href="#"> Twitter</a></li>
+                                                        <li><a href="#"> Twitter</a> <button type="button" class="like-button"></button></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -356,6 +358,17 @@
 
 
     <script language="text/Javascript">
+        const Begen = document.querySelector(".like-button");
+        Begen.addEventListener('click', eventHandler);
+        function eventHandler(event) {
+            if (Begen.classList.contains("Like")) {
+                @{ 
+                   
+
+
+                }
+            }
+        }
 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
       function clearField(t){                   //declaring the array outside of the
@@ -470,7 +483,7 @@
                     @ViewBag.basarili
                 </div>
             }
-            
+
             <div class="col-md-12 pr-0 pl-0">
                 @Html.TextArea("yorum", new { @class = "form-control bg-light" })
             </div>
