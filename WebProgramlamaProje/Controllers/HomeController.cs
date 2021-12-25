@@ -13,20 +13,28 @@ namespace WebProgramlamaProje.Controllers
 {
     public class HomeController : Controller
     {
-        //ApplicationDbContext db = new ApplicationDbContext();
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        private readonly ApplicationDbContext _context;
+
+
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
-
         public IActionResult Index()
         {
-            
-            return View();
+            var recipe = _context.Recipes.Include(r => r.AppUser).Include(s=> s.Comments).OrderByDescending(s => s.PublishTime);
+            return View(recipe);
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
