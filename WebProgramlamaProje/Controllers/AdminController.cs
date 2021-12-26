@@ -29,11 +29,7 @@ namespace WebProgramlamaProje.Controllers
 
         // KATEGORİ LİSTE
         
-        public async Task<IActionResult> Categories()
-        {
-            
-            return View(await _context.Categories.ToListAsync());
-        }
+       
 
 
 
@@ -42,68 +38,62 @@ namespace WebProgramlamaProje.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Recipes");
+            }
+
+            var recipe = await _context.Recipes.Include(a => a.AppUser).Include(s => s.Comments).Include(f => f.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (recipe == null)
+            {
+                return RedirectToAction("Recipes");
+            }
+
+            return View(recipe);
+        }
+
+
+   
+
+      
+        
+        // GET: Admin/Delete/5
+
+        // TARİF SİLME
+        public async Task<IActionResult> DeleteRecipe(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Recipes");
             }
 
             var recipe = await _context.Recipes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null)
             {
-                return NotFound();
+                return RedirectToAction("Recipes");
             }
 
             return View(recipe);
         }
 
-        // KATEGORİ DETAY
-        public async Task<IActionResult> CategoryDetails(int? id)
+
+
+
+
+
+
+
+
+        public async Task<IActionResult> Categories()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
-
-
-
-
-
-        // TARİF OLUŞTUR
-        public IActionResult CreateRecipe()
-        {
-            return View();
+            return View(await _context.Categories.ToListAsync());
         }
         public IActionResult CreateCategory()
         {
             return View();
         }
 
-
-
-        // TARİF OLUŞTUR
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateRecipe([Bind("Id,Title,FoodRecipe,ImageUrl,IsConfirmed,PublishTime")] Recipe recipe)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(recipe);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Recipes));
-            }
-            return View(recipe);
-        }
-
-        // KATEGORİ OLUŞTUR
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateCategory([Bind("Id,Name")] Category category)
@@ -116,139 +106,31 @@ namespace WebProgramlamaProje.Controllers
             }
             return View(category);
         }
-
-
-        // TARİF DÜZENLE
-        public async Task<IActionResult> EditRecipe(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var recipe = await _context.Recipes.FindAsync(id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-            return View(recipe);
-        }
-        // KATEGORİ DÜZENLE
-        public async Task<IActionResult> EditCategory(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
-        }
-
-        // TARİF DÜZENLEME {POST}
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditRecipe(int id, [Bind("Id,Title,FoodRecipe,ImageUrl,IsConfirmed,PublishTime")] Recipe recipe)
-        {
-            if (id != recipe.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(recipe);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RecipeExists(recipe.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Recipes));
-            }
-            return View(recipe);
-        }
-        // KATEGORİ DÜZENLEME {POST}
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditCategory(int id, [Bind("Id,Name")] Category category)
-        {
-            if (id != category.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Categories));
-            }
-            return View(category);
-        }
-        // GET: Admin/Delete/5
-
-        // TARİF SİLME
-        public async Task<IActionResult> DeleteRecipe(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-
-            return View(recipe);
-        }
-        // KATEGORİ SİLME
         public async Task<IActionResult> DeleteCategory(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Categories");
             }
 
             var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
-                return NotFound();
+                return RedirectToAction("Categories");
             }
 
             return View(category);
         }
+
+
+
+
+
+
+
+
+
 
         // TARİF SİLME {POST}
         [HttpPost, ActionName("DeleteRecipe")]
@@ -294,10 +176,63 @@ namespace WebProgramlamaProje.Controllers
             var recipes = await _context.Recipes.Include(s => s.AppUser).Include(d => d.Comments).Include(f => f.Category).ToListAsync();
             return View(recipes);
         }
+        [HttpGet]
+        public async Task<IActionResult> EditRecipe(int? id)
+        {
+            if(id != null)
+            {
+                var recipe = await _context.Recipes.Include(a => a.AppUser).FirstOrDefaultAsync(s => s.Id == id);
+                if(recipe == null)
+                {
+                    return RedirectToAction("Recipes");
+                }
+                var data = new ConfirmRecipeModel()
+                {
+                    Title = recipe.Title,
+                    FoodRecipe = recipe.FoodRecipe,
+                    IsApproved = recipe.IsConfirmed,
+                    Id = recipe.Id
+
+                };
+                return View(data);
+            }
+
+            return RedirectToAction("Recipes");
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditRecipe(ConfirmRecipeModel model)
+        {
+            var recipe = await _context.Recipes.FirstOrDefaultAsync(s => s.Id == model.Id);
+            recipe.IsConfirmed = model.IsApproved;
+            _context.SaveChanges();
+            return RedirectToAction("Recipes");
+        }
         public async Task<IActionResult> Comments()
         {
             var comments = await _context.Comments.Include(s => s.AppUser).Include(d => d.Recipe).ToListAsync();
             return View(comments);
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditComment(int id)
+        {
+            var comment = await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(s => s.Id == id);
+            var data = new ConfirmComment()
+            {
+                Text = comment.Text,
+                IsApproved = comment.IsConfirmed,
+                Id = comment.Id,
+                RecipeId = comment.RecipeId,
+                AppUserId = comment.AppUserId
+            };
+            return View(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditComment(ConfirmComment confirmComment)
+        {
+            var comment = await _context.Comments.FirstOrDefaultAsync(s => s.Id == confirmComment.Id);
+            comment.IsConfirmed = confirmComment.IsApproved;
+            _context.SaveChanges();
+            return RedirectToAction("Comments");
         }
     }
 }

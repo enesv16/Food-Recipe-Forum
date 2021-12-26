@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.Comment>
+@{
+    ViewBag.Title = "Yorumlar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Yorumlar
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Yorum</th>
+                        <th>Tarif</th>
+                        <th>Yazar</th>
+                        <th>Tarih</th>
+                        <th>Onay</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Yorum</th>
+                        <th>Tarif</th>
+                        <th>Yazar</th>
+                        <th>Tarih</th>
+                        <th>Onay</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var comment in Model)
+                    {
+                        <tr>
+                            <td>@comment.Text.Substring(0, (comment.Text.Length > 30) ? 30 : comment.Text.Length) ...</td>
+                            <td>@comment.Recipe.Title (@comment.RecipeId)</td>
+                            <td>@comment.AppUser.Name</td>
+                            <td>@comment.PublishTime</td>
+                            <td>@comment.IsConfirmed</td>
+                            <td>
+                                <a asp-action="EditComment" asp-route-id="@comment.Id">Düzenle</a>
+                                <a asp-action="DeleteComment" asp-route-id="@comment.Id">Sil</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Son güncellenme tarihi : @DateTime.Now</div>
+</div>

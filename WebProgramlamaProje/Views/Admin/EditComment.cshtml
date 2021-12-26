@@ -1,0 +1,43 @@
+﻿@model WebProgramlamaProje.Models.ConfirmComment
+@{
+    ViewBag.Title = "Yorum Detay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .checkboxw {
+        width: 20px;
+    }
+</style>
+<div class="create-container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h3>Yorum düzenle (@Model.Id)</h3>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Text, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <textarea class="text-area-400 form-control" disabled>@Model.Text</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+
+                    @Html.LabelFor(model => model.IsApproved, new { @class = "control-label" })
+                    @Html.CheckBoxFor(model => model.IsApproved, new { @class = "form-control checkboxw" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Güncelle" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>

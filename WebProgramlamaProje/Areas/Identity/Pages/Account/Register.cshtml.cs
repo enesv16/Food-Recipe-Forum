@@ -51,27 +51,29 @@ namespace WebProgramlamaProje.Areas.Identity.Pages.Account
 
 
 
-            [Required]
+            [Required(ErrorMessage = "Ad boş bırakılamaz")]
             [Display(Name = "Ad")]
             public string Name { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Soyad boş bırakılamaz")]
             [Display(Name = "Soyad")]
             public string Surname { get; set; }
 
 
-            [Required]
+            [Required(ErrorMessage = "Eposta boş bırakılamaz")]
             [EmailAddress]
             [Display(Name = "Eposta")]
             public string Email { get; set; }
 
-            [Required]
+            
             [MinLength(6, ErrorMessage = "En az 6 en fazla 24 karakter giriniz")]
             [MaxLength(24, ErrorMessage = "En az 6 en fazla 24 karakter giriniz")]
             [DataType(DataType.Password)]
             [Display(Name = "Şifre")]
             public string Password { get; set; }
 
+            [MinLength(6, ErrorMessage = "En az 6 en fazla 24 karakter giriniz")]
+            [MaxLength(24, ErrorMessage = "En az 6 en fazla 24 karakter giriniz")]
             [DataType(DataType.Password)]
             [Display(Name = "Şifre onay")]
             [Compare("Password", ErrorMessage = "Şifreler uyuşmuyor.")]
