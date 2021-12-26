@@ -41,6 +41,9 @@ namespace WebProgramlamaProje.Controllers
             
             
             var recipe = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).Include(d => d.Category).OrderByDescending(s => s.PublishTime);
+            
+            _context.SaveChanges();
+            var recipe = _context.Recipes.Include(r => r.AppUser).Include(f => f.Category).Include(s => s.Comments).OrderByDescending(s => s.PublishTime);
             return View(recipe);
         }
 

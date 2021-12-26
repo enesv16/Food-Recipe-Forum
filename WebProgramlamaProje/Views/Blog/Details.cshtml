@@ -8,7 +8,7 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
 
@@ -18,7 +18,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
 
-    <title>Stand Blog - Post Details</title>
+    <title>Post Detayı</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/BlogDesign/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,13 +28,7 @@
     <link rel="stylesheet" href="/BlogDesign/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/BlogDesign/assets/css/templatemo-stand-blog.css">
     <link rel="stylesheet" href="/BlogDesign/assets/css/owl.css">
-    <!--
 
-    TemplateMo 551 Stand Blog
-
-    https://templatemo.com/tm-551-stand-blog
-
-    -->
 </head>
 
 <body>
@@ -47,48 +41,11 @@
             <div></div>
         </div>
     </div>
-    <!-- ***** Preloader End ***** -->
 
-    <!-- Page Content -->
-    <!-- Banner Starts Here -->
     <div class="heading-page header-text">
-        <section class="page-heading">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-content">
-                            <h4>Post Details</h4>
-                            <h2>Single blog post</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
     </div>
 
-    <!-- Banner Ends Here -->
-
-    <section class="call-to-action">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="main-content">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <span>Stand Blog HTML5 Template</span>
-                                <h4>Creative HTML Template For Bloggers!</h4>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="main-button">
-                                    <a rel="nofollow" href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
     <section class="blog-posts grid-system">
@@ -101,7 +58,7 @@
 
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <img src="assets/images/blog-post-02.jpg" alt="">
+                                        <img src="~/login-form-14/images/yemek.jpg" alt="" width="250" height="270">
                                     </div>
                                     <div class="down-content">
                                         <span>Lifestyle</span>
@@ -109,7 +66,7 @@
                                         <ul class="post-info">
                                             <li><a href="#">@Model.AppUser.Name</a></li>
                                             <li><a href="#">@Model.PublishTime</a></li>
-                                            <li><a href="#">a</a></li>
+                                            <li><a href="#">@Model.Category</a></li>
                                         </ul>
 
                                         <p>
@@ -125,9 +82,17 @@
                                                     </ul>
                                                 </div>
                                                 <div class="col-6">
-                                                    
+                                                    <ul class="post-share">
+                                                        <li><i class="fa fa-share-alt"></i></li>
+                                                        <li><a href="#">Facebook</a>,</li>
+                                                        <li><a href="#"> Twitter</a> <button type="button" class="like-button"></button></li>
+                                                    </ul>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +100,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item comments">
                                     <div class="sidebar-heading">
-                                        <h2> comments</h2>
+                                        <h2> Yorumlar</h2>
                                     </div>
                                     <div class="content">
                                         <ul>
@@ -145,7 +110,7 @@
                                                 {
                                                     <li>
                                                         <div class="author-thumb">
-                                                            <img src="assets/images/comment-author-01.jpg" alt="">
+                                                            <img src="~/login-form-14/images/yemek.jpg" alt="">
                                                         </div>
                                                         <div class="right-content">
                                                             <h4>@yorum.AppUser.Name @yorum.AppUser.Surname <span>@yorum.PublishTime</span></h4>
@@ -161,7 +126,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item submit-comment">
                                     <div class="sidebar-heading">
-                                        <h2>Your comment</h2>
+                                        <h2>Yorum Yap</h2>
                                     </div>
                                     <div class="content">
                                         @if (SignInManager.IsSignedIn(User))
@@ -180,7 +145,6 @@
                                                         <div class="col-lg-12">
                                                             <fieldset>
                                                                 @Html.TextArea("yorum", new { @class = "form-control bg-light" })
-                                                                @*<textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>*@
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-lg-12">
@@ -195,7 +159,8 @@
                                         }
                                         else
                                         {
-                                            <div>Yorum yapmak içiçn giriş yapınız.</div>
+                                            <p class="text-center">Yorum yapmak için giriş yapınız.<a href="/Identity/Account/Login">Giriş Yapmak için tıkla.</a></p>
+
                                         }
 
                                     </div>
@@ -213,33 +178,18 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item search">
                                     <form id="search_form" name="gs" method="GET" action="#">
-                                        <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                                        <input type="text" name="q" class="searchText" placeholder="aramak için tıklayınız..." autocomplete="on">
                                     </form>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="sidebar-item recent-posts">
-                                    <div class="sidebar-heading">
-                                        <h2>Recent Posts</h2>
-                                    </div>
                                     <div class="content">
                                         <ul>
                                             <li>
-                                                <a href="post-details.html">
-                                                    <h5>Vestibulum id turpis porttitor sapien facilisis scelerisque</h5>
-                                                    <span>May 31, 2020</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="post-details.html">
-                                                    <h5>Suspendisse et metus nec libero ultrices varius eget in risus</h5>
-                                                    <span>May 28, 2020</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="post-details.html">
-                                                    <h5>Swag hella echo park leggings, shaman cornhole ethical coloring</h5>
-                                                    <span>May 14, 2020</span>
+                                                <a href="/Blog/Create">
+                                                    <h5>Tarif Yaz</h5>
+
                                                 </a>
                                             </li>
                                         </ul>
@@ -249,7 +199,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item categories">
                                     <div class="sidebar-heading">
-                                        <h2>Categories</h2>
+                                        <h2>Kategoriler</h2>
                                     </div>
                                     <div class="content">
                                         <ul>
@@ -263,56 +213,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="sidebar-item tags">
-                                    <div class="sidebar-heading">
-                                        <h2>Tag Clouds</h2>
-                                    </div>
-                                    <div class="content">
-                                        <ul>
-                                            <li><a href="#">Lifestyle</a></li>
-                                            <li><a href="#">Creative</a></li>
-                                            <li><a href="#">HTML5</a></li>
-                                            <li><a href="#">Inspiration</a></li>
-                                            <li><a href="#">Motivation</a></li>
-                                            <li><a href="#">PSD</a></li>
-                                            <li><a href="#">Responsive</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="social-icons">
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Behance</a></li>
-                        <li><a href="#">Linkedin</a></li>
-                        <li><a href="#">Dribbble</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <p>
-                            Copyright 2020 Stand Blog Co.
-
-                            | Design: <a rel="nofollow" href="https://templatemo.com" target="_parent">TemplateMo</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 
     <!-- Bootstrap core JavaScript -->
@@ -328,141 +234,7 @@
     <script src="/BlogDesign/assets/js/accordions.js"></script>
 
 
-    <script language="text/Javascript">
-        const Begen = document.querySelector(".like-button");
-        Begen.addEventListener('click', eventHandler);
-        function eventHandler(event) {
-            if (Begen.classList.contains("Like")) {
-                @{ 
-                   
-
-
-                }
-            }
-        }
-
-        cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-        function clearField(t) {                   //declaring the array outside of the
-            if (!cleared[t.id]) {                      // function makes it static and global
-                cleared[t.id] = 1;  // you could use true and false, but that's more typing
-                t.value = '';         // with more chance of typos
-                t.style.color = '#fff';
-            }
-        }
-    </script>
-
-
 </body>
 
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1>Details</h1>
-
-<div>
-    <h4>Recipe</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FoodRecipe)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FoodRecipe)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IsConfirmed)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsConfirmed)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PreparationTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PreparationTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PublishTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PublishTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppUser.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppUser.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal cols">
-        <div class="form-group">
-            @if (ViewBag.basarili != null)
-            {
-                <div class="col-md-12 pr-0 alert alert-success" role="alert">
-                    @ViewBag.basarili
-                </div>
-            }
-
-            <div class="col-md-12 pr-0 pl-0">
-                @Html.TextArea("yorum", new { @class = "form-control bg-light" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10 pl-0">
-                <input type="submit" value="Yorum ekle" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
