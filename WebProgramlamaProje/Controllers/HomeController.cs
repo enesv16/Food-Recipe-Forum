@@ -41,8 +41,12 @@ namespace WebProgramlamaProje.Controllers
 
         public IActionResult Index()
         {
-            var recipe = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).Include(d => d.Category).OrderByDescending(s => s.PublishTime);
-            return View(recipe);
+            ViewModel viewModel = new ViewModel();
+            
+            var recipes = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).Include(d => d.Category).OrderByDescending(s => s.PublishTime);
+            viewModel.Recipes = recipes;
+            viewModel.Categories = _context.Categories;
+            return View(viewModel);
         }
 
        

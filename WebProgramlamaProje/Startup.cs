@@ -124,6 +124,12 @@ namespace WebProgramlamaProje
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "recipe",
+                    pattern:"blog/{category?}" ,
+                    defaults: new {controller="Blog",action="list"}
+                    );
                 endpoints.MapRazorPages();
             });
 

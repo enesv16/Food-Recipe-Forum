@@ -11,7 +11,7 @@
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@localizer["Merhaba"] @User.Identity.Name!</a>
     </li>
 
-            if (User.IsInRole("serverowner"))
+            if (User.IsInRole("admin"))
             {
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="Admin" asp-page="/Admin/Users" title="Manage">@localizer["Admin Paneli"]</a>

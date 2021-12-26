@@ -1596,7 +1596,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\Design\" />
     <Folder Include="wwwroot\Images\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
   <ItemGroup>
