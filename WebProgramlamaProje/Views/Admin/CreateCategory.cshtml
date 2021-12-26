@@ -1,34 +1,36 @@
 ﻿@model WebProgramlamaProje.Models.Category
-
 @{
-    ViewData["Title"] = "Kategori Oluştur";
+    /**/
+
+    ViewBag.Title = "Kategori oluştur";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Create</h1>
+<h2>Kategori ekle</h2>
 
-<h4>Recipe</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateCategory">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal cols">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Kategori ekle" class="btn btn-default" />
             </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Categories">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

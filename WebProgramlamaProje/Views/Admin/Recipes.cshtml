@@ -18,6 +18,7 @@
                         <th>Kategori</th>
                         <th>Yazar</th>
                         <th>Yorumlar</th>
+                        <th>Onay</th>
                         <th></th>
 
                     </tr>
@@ -28,6 +29,7 @@
                         <th>Kategori</th>
                         <th>Yazar</th>
                         <th>Yorumlar</th>
+                        <th>Onay</th>
                         <th></th>
                     </tr>
                 </tfoot>
@@ -39,9 +41,8 @@
                         <td>@recipe.Category.Name</td>
                         <td>@recipe.AppUser.Name</td>
                         <td>@recipe.Comments.Count()</td>
-                        
-                        <td>
-                            <a asp-action="EditRecipe" asp-route-id="@recipe.Id">Edit</a> |
+                        <td>@recipe.IsConfirmed</td>
+                        <td>   
                             <a asp-action="RecipeDetails" asp-route-id="@recipe.Id">Details</a> |
                             <a asp-action="DeleteRecipe" asp-route-id="@recipe.Id">Delete</a>
                         </td>

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<a href="/admin/createcategory" class="btn btn-sm btn-primary mb-4">Kategori ekle</a>
 <div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
@@ -35,9 +36,7 @@
                             
 
                             <td>
-                                <a asp-action="EditCategory" asp-route-id="@category.Id">Edit</a> |
-                                <a asp-action="CategoryDetails" asp-route-id="@category.Id">Details</a> |
-                                
+                                <a asp-action="DeleteCategory" asp-route-id="@category.Id">Sil</a>
                             </td>
                         </tr>
                     }

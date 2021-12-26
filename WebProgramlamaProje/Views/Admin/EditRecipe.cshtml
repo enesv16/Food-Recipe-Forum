@@ -1,54 +1,48 @@
-﻿@model WebProgramlamaProje.Models.Recipe
-
+﻿@model WebProgramlamaProje.Models.ConfirmRecipeModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewBag.Title = "Tarif onay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Edit</h1>
+<style>
+    .checkboxw {
+        width: 20px;
+    }
+</style>
+<div class="create-container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<h4>Recipe</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditRecipe">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+    <div class="form-horizontal">
+        <h3>Yorum düzenle (@Model.Id)</h3>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea class="text-area-400 form-control" disabled>@Model.Title</textarea>
             </div>
-            <div class="form-group">
-                <label asp-for="FoodRecipe" class="control-label"></label>
-                <input asp-for="FoodRecipe" class="form-control" />
-                <span asp-validation-for="FoodRecipe" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FoodRecipe, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea class="text-area-400 form-control" disabled>@Model.FoodRecipe</textarea>
             </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+
+                @Html.LabelFor(model => model.IsApproved, new { @class = "control-label" })
+                @Html.CheckBoxFor(model => model.IsApproved, new { @class = "form-control checkboxw" })
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsConfirmed" /> @Html.DisplayNameFor(model => model.IsConfirmed)
-                </label>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Güncelle" class="btn btn-default" />
             </div>
-            <div class="form-group">
-                <label asp-for="PublishTime" class="control-label"></label>
-                <input asp-for="PublishTime" class="form-control" />
-                <span asp-validation-for="PublishTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
+    }
 </div>
-
-<div>
-    <a asp-action="Recipes">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

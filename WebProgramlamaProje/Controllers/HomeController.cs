@@ -39,11 +39,8 @@ namespace WebProgramlamaProje.Controllers
             
 
             
-            var user = _context.Users.FirstOrDefault(s => s.Email == "tayyipkoca@hotmail.com");
             
-            
-            _context.SaveChanges();
-            var recipe = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).OrderByDescending(s => s.PublishTime);
+            var recipe = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).Include(d => d.Category).OrderByDescending(s => s.PublishTime);
             return View(recipe);
         }
 
