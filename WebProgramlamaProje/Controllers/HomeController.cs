@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,17 +26,27 @@ namespace WebProgramlamaProje.Controllers
 
         private readonly ApplicationDbContext _context;
 
+      
 
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
+            
         }
+
         public IActionResult Index()
         {
-            var recipe = _context.Recipes.Include(r => r.AppUser).Include(s=> s.Comments).OrderByDescending(s => s.PublishTime);
+            
+
+            
+            var user = _context.Users.FirstOrDefault(s => s.Email == "tayyipkoca@hotmail.com");
+            
+            
+            _context.SaveChanges();
+            var recipe = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).OrderByDescending(s => s.PublishTime);
             return View(recipe);
         }
-        
+
         public IActionResult Privacy()
         {
             return View();

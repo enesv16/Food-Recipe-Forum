@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,22 +13,25 @@ using WebProgramlamaProje.Models;
 
 namespace WebProgramlamaProje.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public AdminController(ApplicationDbContext context)
         {
             _context = context;
         }
+       
 
         // GET: Admin
 
 
 
         // KATEGORİ LİSTE
+        
         public async Task<IActionResult> Categories()
         {
+            
             return View(await _context.Categories.ToListAsync());
         }
 
@@ -288,6 +294,10 @@ namespace WebProgramlamaProje.Controllers
             var recipes = await _context.Recipes.Include(s => s.AppUser).Include(d => d.Comments).Include(f => f.Category).ToListAsync();
             return View(recipes);
         }
-
+        public async Task<IActionResult> Comments()
+        {
+            var comments = await _context.Comments.Include(s => s.AppUser).Include(d => d.Recipe).ToListAsync();
+            return View(comments);
+        }
     }
 }

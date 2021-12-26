@@ -1,5 +1,7 @@
 ﻿@model WebProgramlamaProje.Models.Recipe
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 @{
     //Layout = "";
     ViewData["Title"] = "Details";
