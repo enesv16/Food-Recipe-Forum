@@ -10,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebProgramlamaProje.Data;
 using WebProgramlamaProje.Models;
+using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace WebProgramlamaProje.Controllers
 {
@@ -24,26 +27,42 @@ namespace WebProgramlamaProje.Controllers
         //    _logger = logger;
         //}
 
+        private readonly IHtmlLocalizer<HomeController> _localizer;
+
         private readonly ApplicationDbContext _context;
 
       
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context,IHtmlLocalizer<HomeController> localizer)
         {
             _context = context;
-            
+            _localizer = localizer;
         }
 
         public IActionResult Index()
-        {      
+        {
             var recipe = _context.Recipes.Include(r => r.AppUser).Include(s => s.Comments).Include(d => d.Category).OrderByDescending(s => s.PublishTime);
             return View(recipe);
         }
+
+       
+
 
         public IActionResult Privacy()
         {
             return View();
         }
+
+
+        [HttpPost]
+        public IActionResult CultureManagement(string culture,string returnUrl)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
+
+            return LocalRedirect(returnUrl);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

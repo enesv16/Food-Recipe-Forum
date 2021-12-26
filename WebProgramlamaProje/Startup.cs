@@ -7,6 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +32,38 @@ namespace WebProgramlamaProje
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+            services.AddLocalization(opt=> { opt.ResourcesPath = "Resources"; });
             services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            services.Configure<RequestLocalizationOptions>(
+
+                 opt =>
+                 {
+                     var suppoortedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("tr"),
+                        new CultureInfo("en")
+                    };
+                     opt.DefaultRequestCulture = new RequestCulture("tr");
+                     opt.SupportedCultures = suppoortedCultures;
+                     opt.SupportedUICultures = suppoortedCultures;
+
+                 });
+
+
+
+
+
+
+
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+
 
             services.AddDefaultIdentity<AppUser>(options =>
             {
@@ -70,6 +100,13 @@ namespace WebProgramlamaProje
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
+            //var supportedCultures = new[] { "tr", "en" };
+            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0]).AddSupportedCultures(supportedCultures).AddSupportedUICultures(supportedCultures);
+
+            //app.UseRequestLocalization(localizationOptions);
 
             //app.UseMvc(routes =>
             //{
