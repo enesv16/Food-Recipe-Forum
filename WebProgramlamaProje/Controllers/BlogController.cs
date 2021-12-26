@@ -26,7 +26,39 @@ namespace WebProgramlamaProje.Controllers
             _context = context;
         }
         // GET: Blog
-
+        [HttpGet]
+        public IActionResult List(int? id)
+        {
+            ViewModel viewModel = new ViewModel();
+            viewModel.Categories = _context.Categories;
+            var recipes = _context.Recipes
+                .Include(a => a.AppUser)
+                .Include(s => s.Category)
+                .Include(d => d.Comments)
+                .OrderByDescending(f => f.PublishTime);
+            if (id != null){
+                recipes = _context.Recipes
+                .Include(a => a.AppUser)
+                .Include(s => s.Category).Where(g => g.CategoryId == id)
+                .Include(d => d.Comments)
+                .OrderByDescending(f => f.PublishTime);
+            }
+            viewModel.Recipes = recipes;
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult List(string q)
+        {
+            ViewModel viewModel = new ViewModel();
+            viewModel.Categories = _context.Categories;
+            var recipes = _context.Recipes
+                .Include(a => a.AppUser)
+                .Include(s => s.Category).Where(g => g.FoodRecipe.Contains(q))
+                .Include(d => d.Comments)
+                .OrderByDescending(f => f.PublishTime);
+            viewModel.Recipes = recipes;
+            return View(viewModel);
+        }
         [HttpGet]
         [Authorize]
         public IActionResult Create()
@@ -87,48 +119,6 @@ namespace WebProgramlamaProje.Controllers
             return View(recipe);
         }
 
-        //public async Task<IActionResult> BlogDetails(string title, int id)
-        //{
-
-        //    var recipe = await _context.Recipes
-        //        .Include(r => r.AppUser)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (recipe == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(recipe);
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Recipes.Include(r => r.Category).Include(a => a.AppUser);
@@ -143,7 +133,8 @@ namespace WebProgramlamaProje.Controllers
         public async Task<IActionResult> Details(int id)
         {
 
-
+            ViewModelSR viewModel = new ViewModelSR();
+            viewModel.Categories = _context.Categories;
             var recipe = await _context.Recipes
                 .Include(r => r.AppUser).Include(a => a.Category).Include(s => s.Comments).ThenInclude(d => d.AppUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -153,15 +144,17 @@ namespace WebProgramlamaProje.Controllers
                 return RedirectToAction(nameof(Index));
             //if (Url.FriendlyUrl(recipe.Title) != title)
             //    recipe = null;
-            
 
-            return View(recipe);
+            viewModel.Recipe = recipe;
+            return View(viewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Details(string yorum, int id)
         {
 
-
+            ViewModelSR viewModel = new ViewModelSR();
+            viewModel.Categories = _context.Categories;
+            
             var recipe = await _context.Recipes
                 .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d=>d.AppUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -191,18 +184,15 @@ namespace WebProgramlamaProje.Controllers
                 _context.SaveChanges();
             }
         
-        ViewBag.basarili = "Yorumunuz gönderildi admin onayı bekleniyor.";
+        
             recipe = await _context.Recipes
-                    .Include(r => r.AppUser).Include(s => s.Comments).ThenInclude(d => d.AppUser)
+                    .Include(r => r.AppUser)
+                    .Include(s => s.Comments).ThenInclude(d => d.AppUser)
+                    .Include(g => g.Category)
                     .FirstOrDefaultAsync(m => m.Id == id);
-            return View(recipe);
-            //if (recipe == null)
-            //    return RedirectToAction(nameof(Index));
-            //if (Url.FriendlyUrl(recipe.Title) != title)
-            //    recipe = null;
-
-
-            //return View(recipe);
+            viewModel.Recipe = recipe;
+            return View(viewModel);
+            
         }
 
         // GET: Blog/Edit/5

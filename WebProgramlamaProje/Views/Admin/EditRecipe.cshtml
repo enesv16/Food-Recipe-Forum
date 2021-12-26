@@ -1,6 +1,6 @@
 ﻿@model WebProgramlamaProje.Models.ConfirmRecipeModel
 @{
-    ViewBag.Title = "Tarif onay";
+    ViewBag.Title = "Tarif onayla";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -15,7 +15,7 @@
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h3>Yorum düzenle (@Model.Id)</h3>
+        <h3>Tarif onayla</h3>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 

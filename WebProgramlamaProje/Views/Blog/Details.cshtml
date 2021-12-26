@@ -1,4 +1,5 @@
-﻿@model WebProgramlamaProje.Models.Recipe
+﻿
+@model WebProgramlamaProje.Models.ViewModelSR
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
@@ -61,38 +62,24 @@
                                         <img src="~/login-form-14/images/yemek.jpg" alt="" width="250" height="270">
                                     </div>
                                     <div class="down-content">
-                                        <span>Lifestyle</span>
-                                        <a href="post-details.html"><h4>Aenean pulvinar gravida sem nec</h4></a>
+                                        <span>@Model.Recipe.Category.Name</span>
+                                        <a href="post-details.html"><h4>@Model.Recipe.Title</h4></a>
                                         <ul class="post-info">
-                                            <li><a href="#">@Model.AppUser.Name</a></li>
-                                            <li><a href="#">@Model.PublishTime</a></li>
-                                            <li><a href="#">@Model.Category</a></li>
+                                            <li><a href="#">@Model.Recipe.AppUser.Name</a></li>
+                                            <li><a href="#">@Model.Recipe.PublishTime</a></li>
+                                            <li><a href="#">@Model.Recipe.Category</a></li>
                                         </ul>
 
                                         <p>
-                                            @Model.FoodRecipe
+                                            @Model.Recipe.FoodRecipe
                                         </p>
                                         <div class="post-options">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <ul class="post-tags">
-                                                        <li><i class="fa fa-tags"></i></li>
-                                                        <li><a href="#">@Model.Category.Name</a></li>
-                                                        
-                                                    </ul>
+
                                                 </div>
-                                                <div class="col-6">
-                                                    <ul class="post-share">
-                                                        <li><i class="fa fa-share-alt"></i></li>
-                                                        <li><a href="#">Facebook</a>,</li>
-                                                        <li><a href="#"> Twitter</a> <button type="button" class="like-button"></button></li>
-                                                    </ul>
-                                                </div>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -104,20 +91,27 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            @if (Model.Comments.Count > 0)
+                                            @if (Model.Recipe.Comments.Count > 0)
                                             {
-                                                foreach (var yorum in Model.Comments)
+                                                foreach (var yorum in Model.Recipe.Comments)
                                                 {
                                                     <li>
-                                                        <div class="author-thumb">
-                                                            <img src="~/login-form-14/images/yemek.jpg" alt="">
-                                                        </div>
+                                                        
                                                         <div class="right-content">
                                                             <h4>@yorum.AppUser.Name @yorum.AppUser.Surname <span>@yorum.PublishTime</span></h4>
                                                             <p>@yorum.Text</p>
                                                         </div>
                                                     </li>
                                                 }
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <div class="right-content">
+                                                        
+                                                        <p>Henüz hiç yorum yapılmamış</p>
+                                                    </div>
+                                                </li>
                                             }
                                         </ul>
                                     </div>
@@ -136,12 +130,7 @@
                                                 @Html.AntiForgeryToken()
                                                 <form id="comment" action="#" method="post">
                                                     <div class="row">
-                                                        @if (ViewBag.basarili != null)
-                                                        {
-                                                            <div class="col-md-12 pr-0 alert alert-success" role="alert">
-                                                                @ViewBag.basarili
-                                                            </div>
-                                                        }
+                                                       
                                                         <div class="col-lg-12">
                                                             <fieldset>
                                                                 @Html.TextArea("yorum", new { @class = "form-control bg-light" })
@@ -203,12 +192,10 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            <li><a href="#">- Nature Lifestyle</a></li>
-                                            <li><a href="#">- Awesome Layouts</a></li>
-                                            <li><a href="#">- Creative Ideas</a></li>
-                                            <li><a href="#">- Responsive Templates</a></li>
-                                            <li><a href="#">- HTML5 / CSS3 Templates</a></li>
-                                            <li><a href="#">- Creative &amp; Unique</a></li>
+                                            @foreach (var cat in Model.Categories)
+                                            {
+                                                <li><a href="/blog/list/@cat.Id">-@cat.Name</a></li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
