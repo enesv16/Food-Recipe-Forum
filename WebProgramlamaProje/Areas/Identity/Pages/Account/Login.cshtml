@@ -1,10 +1,7 @@
 ﻿@page
 @model LoginModel
-
-@{
-  
-    ViewData["Title"] = "Log in";
- }
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{ ViewData["Title"] = "Log in"; }
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -30,7 +27,7 @@
                     <div class="login-wrap p-4 p-md-5">
                         <div class="d-flex">
                             <div class="w-100">
-                                <h3 class="mb-4">Giriş Yap</h3>
+                                <h3 class="mb-4">@localizer["Giriş Yap"]</h3>
                             </div>
 
                         </div>
@@ -38,18 +35,18 @@
                             <div class="form-group mb-3">
                                 @*<label class="label" for="name">Username</label>
                                     <input type="text" class="form-control" placeholder="Username" required>*@
-                                <label asp-for="Input.Email" class="label">Email</label>
-                                <input asp-for="Input.Email" type="text" class="form-control" placeholder="Email" required />
+                                <label asp-for="Input.Email" class="label">@localizer["Email"]</label>
+                                <input asp-for="Input.Email" type="text" class="form-control" placeholder="@localizer["Email"]" required />
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
 
-                                <label asp-for="Input.Password" class="label" for="password">Şifre</label>
-                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Şifre" required>
+                                <label asp-for="Input.Password" class="label" for="password">@localizer["Şifre"]</label>
+                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="@localizer["Şifre"]" required>
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">@localizer["Giriş Yap"]</button>
                             </div>
                             <div class="form-group d-md-flex">
                                 <div class="w-50 text-left">
@@ -62,12 +59,12 @@
                                     </label>
                                 </div>
                                 <div class="w-50 text-md-right">
-                                    <a asp-page="./Index" asp-route-returnUrl="@Model.ReturnUrl">Ana Sayfaya Dön</a>
+                                    <a asp-page="./Index" asp-route-returnUrl="@Model.ReturnUrl">@localizer["Ana Sayfaya Dön"]</a>
                                 </div>
 
                             </div>
                         </form>
-                        <p class="text-center">Kayıtlı değil misin? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Kayıt Ol</a></p>
+                        <p class="text-center">@localizer["Kayıtlı değil misin?"] <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">@localizer["Kayıt Ol"]</a></p>
                     </div>
                 </div>
             </div>

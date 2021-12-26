@@ -110,7 +110,7 @@
                                                 <li>
                                                     <div class="right-content">
                                                         
-                                                        <p>Henüz hiç yorum yapılmamış</p>
+                                                        <p>@localizer["Henüz hiç yorum yapılmamış"]</p>
                                                     </div>
                                                 </li>
                                             }
@@ -121,7 +121,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item submit-comment">
                                     <div class="sidebar-heading">
-                                        <h2>Yorum Yap</h2>
+                                        <h2>@localizer["Yorum Yap"]</h2>
                                     </div>
                                     <div class="content">
                                         @if (SignInManager.IsSignedIn(User))
@@ -140,7 +140,7 @@
                                                         <div class="col-lg-12">
                                                             <fieldset>
 
-                                                                <input type="submit" value="Yorum ekle" class="btn btn-default" />
+                                                                <input type="submit" value="@localizer["Yorum ekle"]" class="btn btn-default" />
                                                             </fieldset>
                                                         </div>
                                                     </div>
@@ -149,7 +149,7 @@
                                         }
                                         else
                                         {
-                                            <p class="text-center">Yorum yapmak için giriş yapınız.<a href="/Identity/Account/Login">Giriş Yapmak için tıkla.</a></p>
+                                            <p class="text-center">@localizer["Yorum yapmak için giriş yapınız."]<a href="/Identity/Account/Login">@localizer["Giriş Yapmak için tıkla."]</a></p>
 
                                         }
 
@@ -168,7 +168,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item search">
                                     <form id="search_form" name="gs" method="GET" action="#">
-                                        <input type="text" name="q" class="searchText" placeholder="aramak için tıklayınız..." autocomplete="on">
+                                        <input type="text" name="q" class="searchText" placeholder="@localizer["aramak için tıklayınız..."]" autocomplete="on">
                                     </form>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                         <ul>
                                             <li>
                                                 <a href="/Blog/Create">
-                                                    <h5>Tarif Yaz</h5>
+                                                    <h5>@localizer["Tarif Yaz"]</h5>
 
                                                 </a>
                                             </li>
@@ -189,7 +189,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item categories">
                                     <div class="sidebar-heading">
-                                        <h2>Kategoriler</h2>
+                                        <h2>@localizer["Kategoriler"]</h2>
                                     </div>
                                     <div class="content">
                                         <ul>

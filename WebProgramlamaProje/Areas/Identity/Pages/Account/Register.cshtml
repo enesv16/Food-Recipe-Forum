@@ -1,5 +1,6 @@
 ﻿@page
 @model RegisterModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @{
 
     ViewData["Title"] = "Register";
@@ -34,21 +35,21 @@
                     <div class="login-wrap p-4 p-md-5">
                         <div class="d-flex">
                             <div class="w-100">
-                                <h3 class="mb-4">Kayıt Ol</h3>
+                                <h3 class="mb-4">@localizer["Kayıt Ol"]</h3>
                             </div>
 
                         </div>
                         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                             <div class="form-group mb-3">
 
-                                <label asp-for="Input.Name" class="label">Ad</label>
-                                <input asp-for="Input.Name" type="text" class="form-control" placeholder="Ad" required />
+                                <label asp-for="Input.Name" class="label">@localizer["Ad"]</label>
+                                <input asp-for="Input.Name" type="text" class="form-control" placeholder="@localizer["Ad"]" required />
                                 <span asp-validation-for="Input.Name" class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
 
-                                <label asp-for="Input.Surname" class="label">Soyad</label>
-                                <input asp-for="Input.Surname" type="text" class="form-control" placeholder="Soyad" required />
+                                <label asp-for="Input.Surname" class="label">@localizer["Soyad"]</label>
+                                <input asp-for="Input.Surname" type="text" class="form-control" placeholder="@localizer["Soyad"]" required />
                                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
                             </div>
                             <div class="form-group mb-3">
@@ -59,27 +60,27 @@
                             </div>
                             <div class="form-group mb-3">
 
-                                <label asp-for="Input.Password" class="label" for="password">Password</label>
-                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password" required>
+                                <label asp-for="Input.Password" class="label" for="password">@localizer["Şifre"]</label>
+                                <input asp-for="Input.Password" type="password" class="form-control" placeholder="@localizer["Şifre"]" required>
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Input.ConfirmPassword"class="label"></label>
-                                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Password" />
+                                <label asp-for="Input.ConfirmPassword" class="label">@localizer["Şifre"]</label>
+                                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="@localizer["Şifre"]" />
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Giriş Yap</button>
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">@localizer["Giriş Yap"]</button>
                             </div>
                             <div class="form-group d-md-flex">
-                               
-                                    <p class="text-center">Zaten hesabın var mı? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Giriş yapmak için tıkla.</a></p>
 
-                               
+                                <p class="text-center">@localizer["Zaten hesabın var mı?"] <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">@localizer["Giriş yapmak için tıkla."]</a></p>
+
+
 
                             </div>
                         </form>
-                        <a asp-page="./Index" asp-route-returnUrl="@Model.ReturnUrl">Ana Sayfaya Dön</a>
+                        <a asp-page="./Index" asp-route-returnUrl="@Model.ReturnUrl">@localizer["Ana Sayfaya Dön"]</a>
                     </div>
                 </div>
             </div>
@@ -88,36 +89,6 @@
 
 </section>
 
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to register.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>
 
 
 @section Scripts {

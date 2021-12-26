@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="aramak için tıklayınız..." xml:space="preserve">
+    <value>aramak için tıklayınız...</value>
+  </data>
+  <data name="Giriş Yapmak için tıkla." xml:space="preserve">
+    <value>Giriş Yapmak için tıkla.</value>
+  </data>
+  <data name="Henüz hiç yorum yapılmamış" xml:space="preserve">
+    <value>Henüz hiç yorum yapılmamış</value>
+  </data>
+  <data name="Kategoriler" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
+  <data name="Tarif Yaz" xml:space="preserve">
+    <value>Tarif Yaz</value>
+  </data>
+  <data name="Yorum Ekle" xml:space="preserve">
+    <value>Yorum Ekle</value>
+  </data>
+  <data name="Yorum Yap" xml:space="preserve">
+    <value>Yorum Yap</value>
+  </data>
+  <data name="Yorum yapmak için giriş yapınız." xml:space="preserve">
+    <value>Yorum yapmak için giriş yapınız.</value>
+  </data>
   <data name="Yorumlar" xml:space="preserve">
     <value>Yorumlar</value>
   </data>
