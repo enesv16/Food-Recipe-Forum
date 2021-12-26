@@ -177,18 +177,27 @@ namespace WebProgramlamaProje.Controllers
             return View(recipes);
         }
         [HttpGet]
-        public async Task<IActionResult> EditRecipe(int id)
+        public async Task<IActionResult> EditRecipe(int? id)
         {
-            var recipe = await _context.Recipes.Include(a => a.AppUser).FirstOrDefaultAsync(s => s.Id == id);
-            var data = new ConfirmRecipeModel()
+            if(id != null)
             {
-                Title = recipe.Title,
-                FoodRecipe = recipe.FoodRecipe,
-                IsApproved = recipe.IsConfirmed,
-                Id = recipe.Id
-               
-            };
-            return View(data);
+                var recipe = await _context.Recipes.Include(a => a.AppUser).FirstOrDefaultAsync(s => s.Id == id);
+                if(recipe == null)
+                {
+                    return RedirectToAction("Recipes");
+                }
+                var data = new ConfirmRecipeModel()
+                {
+                    Title = recipe.Title,
+                    FoodRecipe = recipe.FoodRecipe,
+                    IsApproved = recipe.IsConfirmed,
+                    Id = recipe.Id
+
+                };
+                return View(data);
+            }
+
+            return RedirectToAction("Recipes");
         }
         [HttpPost]
         public async Task<IActionResult> EditRecipe(ConfirmRecipeModel model)

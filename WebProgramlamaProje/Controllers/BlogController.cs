@@ -39,23 +39,45 @@ namespace WebProgramlamaProje.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,FoodRecipe,PreparationTime,CategoryId")] Recipe recipe,IFormFile file)
+        //[Bind("Title,FoodRecipe,PreparationTime,CategoryId")] Recipe recipe,IFormFile file
+        public async Task<IActionResult> Create(AddRecipe addrecipe)
         {
+            Recipe recipe = new Recipe();
             if (ModelState.IsValid)
             {
                 var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                
+
+                var extension = Path.GetExtension(addrecipe.ImageUrl.FileName);
+                var newimagename = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/img/",newimagename);
+                var stream = new FileStream(location, FileMode.Create);
+                addrecipe.ImageUrl.CopyTo(stream);
+                recipe.ImageUrl = newimagename;
+                recipe.Title = addrecipe.Title;
+                recipe.FoodRecipe = addrecipe.FoodRecipe;
+                recipe.CategoryId = addrecipe.CategoryId;
+                recipe.PreparationTime = addrecipe.PreparationTime;
                 recipe.AppUserId = userId;
                 recipe.PublishTime = DateTime.Now;
-                recipe.ImageUrl = file.FileName;
-                var extention = Path.GetExtension(file.FileName);
-                var randomName = string.Format($"{Guid.NewGuid()}{extention}");
-                var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwwroot\\img",file.FileName);
 
 
-                using(var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
+
+
+
+
+
+
+                //recipe.ImageUrl = file.FileName;
+                //var extention = Path.GetExtension(file.FileName);
+                //var randomName = string.Format($"{Guid.NewGuid()}{extention}");
+                //var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwwroot\\img",file.FileName);
+
+
+                //using(var stream = new FileStream(path, FileMode.Create))
+                //{
+                //    await file.CopyToAsync(stream);
+                //}
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
